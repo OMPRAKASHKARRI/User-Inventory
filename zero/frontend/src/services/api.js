@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://user-inventory.onrender.com";
 
 export const searchItems = async (params) => {
   const query = new URLSearchParams(params).toString();
