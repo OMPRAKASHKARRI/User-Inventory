@@ -1,16 +1,22 @@
-const db = require("../db");
+// In-memory storage
+let suppliers = [];
 
 const addSupplier = (req, res) => {
   const { name, city } = req.body;
 
-  db.run(
-    "INSERT INTO suppliers (name, city) VALUES (?, ?)",
-    [name, city],
-    function (err) {
-      if (err) return res.status(500).json(err);
-      res.json({ id: this.lastID });
-    }
-  );
+  if (!name || !city) {
+    return res.status(400).json({ message: "Name and city are required" });
+  }
+
+  const newSupplier = {
+    id: suppliers.length + 1,
+    name,
+    city
+  };
+
+  suppliers.push(newSupplier);
+
+  res.json(newSupplier);
 };
 
-module.exports = { addSupplier };
+module.exports = { addSupplier, suppliers };
